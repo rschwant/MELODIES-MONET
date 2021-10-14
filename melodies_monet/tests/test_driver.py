@@ -21,3 +21,9 @@ def test_read_control():
     global an
     an.read_control()
     assert True
+
+
+def test_open_models():
+    global an
+    an.open_models()
+    assert True

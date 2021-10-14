@@ -2,3 +2,15 @@ analysis:
     start_time: '2019-08-01'
     end_time:   '2019-08-31'
     debug: False
+
+model:
+    test:
+        files: test_model.nc
+        mod_type: test
+        mapping:
+            test:
+                X: "X"
+
+obs:
+    test:
+        filename: test_obs.nc
