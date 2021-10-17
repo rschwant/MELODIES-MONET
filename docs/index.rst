@@ -35,7 +35,7 @@ information on MONET and MONETIO github repositories please refer to:
 .. toctree::
    :hidden:
    :maxdepth: 4
-   :caption: Background \& Setup
+   :caption: Background and Setup
 
    background/introduction
    background/description
@@ -50,7 +50,7 @@ information on MONET and MONETIO github repositories please refer to:
 .. toctree::
    :hidden:
    :maxdepth: 4
-   :caption: Capabilities \& Examples
+   :caption: Capabilities and Examples
 
    examples/regional_ts
 
@@ -58,7 +58,7 @@ information on MONET and MONETIO github repositories please refer to:
 
 .. toctree::
    :maxdepth: 1
-   :caption: Help \& Reference
+   :caption: Help and Reference
 
    api
    tutorial/machine-specific-install
