@@ -1,33 +1,43 @@
 import os
 import sys
 import argparse
+import logging
+import yaml
+
 import math
 import numpy as np
 import scipy as sp
 import xarray as xr
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--seed', type=int,
-    default=1,
-    help='random generator seed')
-parser.add_argument('--nlat', type=int,
-    default=180)
-parser.add_argument('--nlon', type=int,
-    default=360)
-parser.add_argument('--l_max', type=int,
-    default=2)
-parser.add_argument('--start', type=str,
-    default='20200801',
-    help='start date (yyyymmdd)')
-parser.add_argument('--end', type=str,
-    default='20200831',
-    help='end date (yyyymmdd)')
+parser.add_argument('--control', type=str,
+    default='control.yaml',
+    help='yaml control file')
+parser.add_argument('--logfile', type=str,
+    default=sys.stdout,
+    help='log file (default stdout)')
+parser.add_argument('--debug', action='store_true',
+    help='set logging level to debug')
 args = parser.parse_args()
+
+"""
+Setup logging
+"""
+logging_level = logging.DEBUG if args.debug else logging.INFO
+logging.basicConfig(stream=args.logfile, level=logging_level)
+
+"""
+Read YAML control
+"""
+with open(args.control, 'r') as f:
+    control = yaml.safe_load(f)
 
 """
 Generate uniform grid
 """
-nlat, nlon = args.nlat, args.nlon
+nlat = control['test_setup']['grid']['nlat']
+nlon = control['test_setup']['grid']['nlon']
+logging.info((nlat, nlon))
 lat_edges = np.linspace(-90, 90, nlat+1, endpoint=True, dtype=float)
 lat = 0.5 * (lat_edges[0:nlat] + lat_edges[1:nlat+1])
 lat_min, lat_max = lat_edges[0:nlat], lat_edges[1:nlat+1]

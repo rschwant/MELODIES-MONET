@@ -14,3 +14,9 @@ model:
 obs:
     test:
         filename: test_obs.nc
+
+test_setup:
+    random_seed: 3
+    grid:
+        nlat: 180
+        nlon: 360
