@@ -29,3 +29,4 @@ def test_open_models():
     global an
     an.open_models()
     assert True
+
