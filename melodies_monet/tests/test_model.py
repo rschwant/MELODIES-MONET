@@ -3,6 +3,7 @@ pytest test_model.py
 """
 import sys
 import numpy as np
+import xarray as xr
 sys.path.insert(0, '..')
 import driver
 
@@ -20,6 +21,7 @@ def test_init():
     global model
     model = driver.model()
     model.file_str = file_str
+    model.obj = xr.open_dataset(file_test)
     assert True
 
 
@@ -29,3 +31,9 @@ def test_glob_files():
     print(model.files)
     assert type(model.files) is np.ndarray
     assert model.files[0] == file_test
+
+
+def test_mask_and_scale():
+    global model
+    model.mask_and_scale()
+    assert True
