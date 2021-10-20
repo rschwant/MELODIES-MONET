@@ -45,3 +45,13 @@ deg_to_rad = math.pi / 180.0
 weight = np.abs(np.sin(deg_to_rad * lat_max) - np.sin(deg_to_rad * lat_min))
 lon_edges = np.linspace(-180, 180, nlon+1, endpoint=True, dtype=float)
 lon = 0.5 * (lon_edges[0:nlon] + lon_edges[1:nlon+1])
+
+"""
+Generate random test field
+"""
+field = np.random.rand(nlat, nlon)
+
+field_name = control['model']['test']['mapping']['test']['varname']
+field_da = xr.DataArray(field, coords=[lat, lon], dims=['lat', 'lon'])
+ds = xr.Dataset({field_name: field_da})
+ds.to_netcdf(control['model']['test']['files'])
