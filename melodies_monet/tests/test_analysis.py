@@ -1,5 +1,5 @@
 """
-pytest test_driver.py
+pytest test_analysis.py
 """
 import sys
 sys.path.insert(0, '..')
