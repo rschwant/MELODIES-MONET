@@ -14,8 +14,8 @@ model:
                 unit_scale_method: '*'
             B:
                 units: 'B units'
-                unit_scale: 1000.0
-                unit_scale_method: '/'
+                unit_scale: 0.01
+                unit_scale_method: '*'
         mapping:
             test_obs:
                 A_obs: "A"

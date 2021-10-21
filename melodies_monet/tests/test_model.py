@@ -14,7 +14,7 @@ and YAML control object
 and be shared across unit tests
 """
 model = None
-control = None
+control = dict()
 
 file_str = '*.nc'
 file_test = 'test_model.nc'
@@ -49,4 +49,14 @@ def test_glob_files():
 def test_mask_and_scale():
     global model
     model.mask_and_scale()
+    for var in model.variable_dict.keys():
+        assert model.obj[var].min() >= 0
+        assert model.obj[var].max() \
+            <= model.variable_dict[var]['unit_scale']
+
+
+def test_cleanup():
+    global model
+    model.obj.close()
+    del model
     assert True
