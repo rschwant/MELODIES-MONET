@@ -1,6 +1,6 @@
 analysis:
-    start_time: '2019-08-01'
-    end_time:   '2019-08-31'
+    start_time: '2019-09-09'
+    end_time:   '2019-09-11'
     debug: False
 
 model:
@@ -9,20 +9,23 @@ model:
         mod_type: random
         variables:
             A:
-                units: 'A units' 
+                units: 'Units of A' 
                 unit_scale: 100.0
                 unit_scale_method: '*'
             B:
-                units: 'B units'
+                units: 'Units of B'
                 unit_scale: 0.01
                 unit_scale_method: '*'
         mapping:
             test_obs:
-                A_obs: "A"
+                A: "A_obs"
+                B: "B_obs"
+        projection: None
 
 obs:
     test:
         filename: test_obs.nc
+        obs_type: pt_sfc
 
 test_setup:
     random_seed: 3
