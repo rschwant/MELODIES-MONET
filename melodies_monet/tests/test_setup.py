@@ -47,11 +47,14 @@ lon_edges = np.linspace(-180, 180, nlon+1, endpoint=True, dtype=float)
 lon = 0.5 * (lon_edges[0:nlon] + lon_edges[1:nlon+1])
 
 """
-Generate random test field
+Generate random test fields
 """
-field = np.random.rand(nlat, nlon)
-
-field_name = control['model']['test']['mapping']['test']['varname']
-field_da = xr.DataArray(field, coords=[lat, lon], dims=['lat', 'lon'])
-ds = xr.Dataset({field_name: field_da})
-ds.to_netcdf(control['model']['test']['files'])
+np.random.seed(control['test_setup']['random_seed'])
+field_names = control['model']['test_model']['variables'].keys()
+ds_dict = dict()
+for field_name in field_names:
+    field = np.random.rand(nlat, nlon)
+    field_da = xr.DataArray(field, coords=[lat, lon], dims=['lat', 'lon'])
+    ds_dict[field_name] = field_da
+ds = xr.Dataset(ds_dict)
+ds.to_netcdf(control['model']['test_model']['files'])
