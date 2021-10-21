@@ -10,23 +10,34 @@ define a variable in the global scope
 to hold a driver.analysis object
 and be shared across unit tests
 """
-an = None
+analysis = None
 
 
 def test_init():
-    global an
-    an = driver.analysis()
+    global analysis
+    analysis = driver.analysis()
     assert True
 
 
 def test_read_control():
-    global an
-    an.read_control()
+    global analysis
+    analysis.read_control()
     assert True
 
 
 def test_open_models():
-    global an
-    an.open_models()
+    global analysis
+    analysis.open_models()
     assert True
 
+
+def test_open_obs():
+    global analysis
+    analysis.open_obs()
+    assert True
+
+
+def test_cleanup():
+    global analysis
+    del analysis
+    assert True
