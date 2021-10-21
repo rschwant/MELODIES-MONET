@@ -9,9 +9,11 @@ model:
         mod_type: random
         variables:
             A:
+                units: 'A units' 
                 unit_scale: 100.0
                 unit_scale_method: '*'
             B:
+                units: 'B units'
                 unit_scale: 1000.0
                 unit_scale_method: '/'
         mapping:
