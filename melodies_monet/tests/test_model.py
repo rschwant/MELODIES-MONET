@@ -10,11 +10,22 @@ import driver
 """
 define a variable in the global scope
 to hold a driver.model object
+and YAML control object
 and be shared across unit tests
 """
 model = None
+control = None
+
 file_str = '*.nc'
 file_test = 'test_model.nc'
+
+
+
+def test_read_control_yaml(control_yaml):
+    import yaml
+    global control
+    with open(control_yaml, 'r') as f:
+        control = yaml.safe_load(f)
 
 
 def test_init():
