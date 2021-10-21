@@ -4,12 +4,19 @@ analysis:
     debug: False
 
 model:
-    test:
+    test_model:
         files: test_model.nc
-        mod_type: test
+        mod_type: random
+        variables:
+            A:
+                unit_scale: 100.0
+                unit_scale_method: '*'
+            B:
+                unit_scale: 1000.0
+                unit_scale_method: '/'
         mapping:
-            test:
-                varname: "X"
+            test_obs:
+                A_obs: "A"
 
 obs:
     test:

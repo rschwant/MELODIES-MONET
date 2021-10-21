@@ -33,6 +33,8 @@ def test_init():
     model = driver.model()
     model.file_str = file_str
     model.obj = xr.open_dataset(file_test)
+    model.variable_dict = control['model']['test_model']['variables']
+    print(model.variable_dict)
     assert True
 
 
