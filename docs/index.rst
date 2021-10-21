@@ -55,6 +55,15 @@ information on MONET and MONETIO github repositories please refer to:
    examples/regional_ts
 
 
+.. toctree::
+   :hidden:
+   :maxdepth: 4
+   :caption: Test Suite
+
+   testsuite/unit_tests
+   testsuite/data_tests
+   testsuite/analysis_tests
+
 
 .. toctree::
    :maxdepth: 1
