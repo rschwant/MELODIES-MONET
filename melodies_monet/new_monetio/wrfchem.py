@@ -19,7 +19,7 @@ def open_mfdataset(fname,
                    convert_to_ppb=True,
                    mech = 'racm_esrl_vcp',
                    var_list = ['o3'],
-                   vert = True,
+                   vert = False,
                    **kwargs):
     """Method to open RAP-chem netcdf files.
 
@@ -66,17 +66,23 @@ def open_mfdataset(fname,
         #need to calculate surface pressure and dp and optionally dz here. 
         #Meng or Jian since you need this for satellite info, I'll have you add these here.
    
-    var_wrf_list = []
-    for var in var_list:
-        if var == 'pres': #Insert special versions.
-            var_wrf = getvar(wrflist,var,timeidx=ALL_TIMES,method='cat',squeeze=False,units='Pa')
-        elif var == 'height':
-            var_wrf = getvar(wrflist,var,timeidx=ALL_TIMES,method='cat',squeeze=False,units='m')
-        elif var == 'height_agl':
-            var_wrf = getvar(wrflist,var,timeidx=ALL_TIMES,method='cat',squeeze=False,units='m') 
-        else:
-            var_wrf = getvar(wrflist,var,timeidx=ALL_TIMES,method='cat',squeeze=False)
-        var_wrf_list.append(var_wrf)
+        var_wrf_list = []
+        for var in var_list:
+            if var == 'pres': #Insert special versions.
+                var_wrf = getvar(wrflist,var,timeidx=ALL_TIMES,method='cat',squeeze=False,units='Pa')
+            elif var == 'height':
+                var_wrf = getvar(wrflist,var,timeidx=ALL_TIMES,method='cat',squeeze=False,units='m')
+            elif var == 'height_agl':
+                var_wrf = getvar(wrflist,var,timeidx=ALL_TIMES,method='cat',squeeze=False,units='m') 
+            else:
+                var_wrf = getvar(wrflist,var,timeidx=ALL_TIMES,method='cat',squeeze=False)
+            var_wrf_list.append(var_wrf)
+
+    else:
+        var_wrf_list = []
+        for var in var_list:
+            var_wrf = getvar(wrflist,var,timeidx=ALL_TIMES,method='cat',squeeze=False)[:,0,:,:]  # surface only
+            var_wrf_list.append(var_wrf)
 
     dset = xr.merge(var_wrf_list)
 
