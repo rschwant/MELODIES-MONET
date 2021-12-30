@@ -5,7 +5,7 @@ import pycharm_dark as dk
 x = np.linspace(0, 2 * np.pi, 100)
 y = np.cos(x)
 
-fig = plt.figure()
+fig = plt.figure(figsize=(10, 5))
 fig.patch.set_facecolor(dk.facecolor)
 
 ax = fig.add_subplot()

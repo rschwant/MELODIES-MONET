@@ -8,7 +8,7 @@ textcolor = (175 / 255, 177 / 255, 179 / 255)
 facecolor = (60 / 255, 63 / 255, 65 / 255)
 
 plt.rcParams['figure.dpi'] = 300
-plt.rcParams['figure.figsize'] = (10, 5)
+plt.rcParams['lines.linewidth'] = 4
 plt.rcParams['text.color'] = textcolor
 plt.rcParams['axes.edgecolor'] = textcolor
 plt.rcParams['axes.labelcolor'] = textcolor
