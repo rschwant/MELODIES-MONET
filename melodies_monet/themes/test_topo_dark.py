@@ -24,4 +24,3 @@ ax.set_boundary(circle, transform=ax.transAxes)
 plt.tight_layout()
 
 plt.show()
-# plt.savefig('test_topo_dark.png')
