@@ -9,4 +9,5 @@ shapefile = shapereader.natural_earth(resolution, category, name)
 reader = shapereader.Reader(shapefile)
 countries = reader.records()
 for country in countries:
-    print(country.attributes)
+    print(country.attributes['SOVEREIGNT'])
+    print(country.geometry)
