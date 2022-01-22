@@ -486,7 +486,7 @@ class analysis:
                     p.obj = p.fix_paired_xarray(dset=p.obj)
                     # write_util.write_ncf(p.obj,p.filename) # write out to file
                 # TODO: add other network types / data types where (ie flight, satellite etc)
-                
+
     ### TODO: Create the plotting driver (most complicated one)
     # def plotting(self):
     def plotting(self):
@@ -822,6 +822,22 @@ class analysis:
                                 text_dict=text_dict,
                                 debug=self.debug
                             )
+
+    def plot_obs(self):
+        """
+        Plot only observations
+
+        Returns
+        -------
+        type
+            Returns
+        """
+
+        startdatename = str(datetime.datetime.strftime(self.start_time, '%Y-%m-%d_%H'))
+        enddatename = str(datetime.datetime.strftime(self.end_time, '%Y-%m-%d_%H'))
+
+        for o in self.obs:
+            print(o)
 
     def stats(self):
         """This function will cycle through all the stat variables needed to calculate the stats
