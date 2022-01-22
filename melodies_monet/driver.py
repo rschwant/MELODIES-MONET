@@ -832,7 +832,7 @@ class analysis:
         type
             Returns
         """
-        import satellite_swath_plots
+        from satellite_swath_plots import make_swath
 
         startdatename = str(datetime.datetime.strftime(self.start_time, '%Y-%m-%d_%H'))
         enddatename = str(datetime.datetime.strftime(self.end_time, '%Y-%m-%d_%H'))
@@ -840,7 +840,7 @@ class analysis:
         for obs_key in self.obs:
             label = self.obs[obs_key].label
             if label == 'modis_l2':
-                print(label)
+                make_swath(self.obs[obs_key].obj)
             else:
                 print(label + ' obs type not implemented in plot_obs')
 
