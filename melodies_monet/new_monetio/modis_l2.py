@@ -2,6 +2,7 @@ import os
 import sys
 import logging
 from glob import glob
+from collections import OrderedDict
 
 import numpy as np
 import xarray as xr
@@ -97,10 +98,13 @@ def read_mfdataset(fnames, variable_dict, debug=False):
 
     print(fnames)
     files = sorted(glob(fnames))
-    granules = dict()
+    granules = OrderedDict()
     for file in files:
         granule = read_dataset(file, variable_dict)
         apply_quality_flag(granule)
-        granules[file] = granule
+        granule_str = file.split('/')[-1]
+        granule_info = granule_str.split('.')
+        datetime_str = granule_info[1][1:] + granule_info[2]
+        granules[datetime_str] = granule
 
     return granules
