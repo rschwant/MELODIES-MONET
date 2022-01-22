@@ -7,7 +7,7 @@ import numpy as np
 import xarray as xr
 
 sys.path.append('../../util')
-from hdfio import hdf_open, hdf_close, hdf_read
+from hdfio import hdf_open, hdf_close, hdf_list, hdf_read
 
 
 def read_dataset(fname, variable_dict):
@@ -26,6 +26,7 @@ def read_dataset(fname, variable_dict):
     ds = xr.Dataset()
 
     f = hdf_open(fname)
+    # hdf_list(f)
     latitude = hdf_read(f, 'Latitude')
     longitude = hdf_read(f, 'Longitude')
     start_time = hdf_read(f, 'Scan_Start_Time')
@@ -35,11 +36,36 @@ def read_dataset(fname, variable_dict):
         if 'scale' in variable_dict[varname]:
             values = variable_dict[varname]['scale'] \
                 * values
-        values[values < 0] = np.nan
+        if 'minimum' in variable_dict[varname]:
+            minimum = variable_dict[varname]['minimum']
+            values[values < minimum] = np.nan
+        if 'maximum' in variable_dict[varname]:
+            maximum = variable_dict[varname]['maximum']
+            values[values > maximum] = np.nan
         ds[varname] = xr.DataArray(values)
+        if 'quality_flag' in variable_dict[varname]:
+            ds.attrs['quality_flag'] = varname
+            ds.attrs['quality_thresh'] = variable_dict[varname]['quality_flag']
     hdf_close(f)
 
     return ds
+
+
+def apply_quality_flag(ds):
+    """
+    Parameters
+    __________
+    ds : xarray.Dataset
+    """
+    if 'quality_flag' in ds.attrs:
+        quality_flag = ds[ds.attrs['quality_flag']]
+        quality_thresh = ds.attrs['quality_thresh']
+        for varname in ds:
+            if varname != ds.attrs['quality_flag']:
+                logging.debug(varname)
+                values = ds[varname].values
+                values[quality_flag >= quality_thresh] = np.nan
+                ds[varname].values = values
 
 
 def read_mfdataset(fnames, variable_dict, debug=False):
@@ -71,5 +97,10 @@ def read_mfdataset(fnames, variable_dict, debug=False):
 
     print(fnames)
     files = sorted(glob(fnames))
+    granules = dict()
     for file in files:
         granule = read_dataset(file, variable_dict)
+        apply_quality_flag(granule)
+        granules[file] = granule
+
+    return granules
