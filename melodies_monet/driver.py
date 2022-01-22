@@ -832,12 +832,17 @@ class analysis:
         type
             Returns
         """
+        import satellite_swath_plots
 
         startdatename = str(datetime.datetime.strftime(self.start_time, '%Y-%m-%d_%H'))
         enddatename = str(datetime.datetime.strftime(self.end_time, '%Y-%m-%d_%H'))
 
-        for o in self.obs:
-            print(o)
+        for obs_key in self.obs:
+            label = self.obs[obs_key].label
+            if label == 'modis_l2':
+                print(label)
+            else:
+                print(label + ' obs type not implemented in plot_obs')
 
     def stats(self):
         """This function will cycle through all the stat variables needed to calculate the stats
