@@ -154,59 +154,98 @@ def make_spatial_bias(df, column_o=None, label_o=None, column_m=None,
     #plt.tight_layout(pad=0)
     code_m_new.savefig(outname + '.png',loc=4, height=120, decorate=True, bbox_inches='tight', dpi=200)
     
-def make_timeseries(df, column=None, label=None, ax=None, avg_window=None, ylabel=None,
-                    vmin = None, vmax = None,
-                    domain_type=None, domain_name=None,
-                    plot_dict=None, fig_dict=None, text_dict=None,debug=False):
-    """Creates the MONET-Analysis time series plot."""
-    if debug == False:
+def make_timeseries(
+    df, column=None, label=None, ax=None, avg_window=None, ylabel=None,
+    vmin = None, vmax = None,
+    domain_type=None, domain_name=None,
+    plot_dict=None, fig_dict=None, text_dict=None,debug=False,
+    regulatory: bool = False,
+):
+    """Creates the MONET-Analysis time series plot.
+
+    Returns
+    -------
+    matplotlib.axes.Axes
+    """
+    if not debug:
         plt.ioff()
-    #First define items for all plots
-    #set default text size
+
+    # First define items for all plots
+
+    # Set default text size
     def_text = dict(fontsize=14)
     if text_dict is not None:
         text_kwargs = {**def_text, **text_dict}
     else:
         text_kwargs = def_text
-    # set ylabel to column if not specified.
+
+    # Scale the fontsize for the x and y labels by the text_kwargs
+    plot_dict['fontsize'] = text_kwargs['fontsize'] * 0.8
+
+    # Set ylabel to column if not specified.
     if ylabel is None:
         ylabel = column
     if label is not None:
         plot_dict['label'] = label
     if vmin is not None and vmax is not None:
         plot_dict['ylim'] = [vmin,vmax]
-    #scale the fontsize for the x and y labels by the text_kwargs
-    plot_dict['fontsize'] = text_kwargs['fontsize']*0.8
-    
-    #Then, if no plot has been created yet, create a plot and plot the obs.
+
+    # Replace data with regulatory calculation?
+    if regulatory:
+        # Calculate hourly data first
+        df_hr = df.copy().groupby("siteid").resample('H').mean().reset_index()
+        print('Hourly data: ', df_hr)
+
+        if ylabel == 'Ozone (ppbv)':
+            # Calculate MDA8 O3
+            column2 = column + '_MDA8'
+            df = make_8hr_regulatory(df_hr, column).rename(index=str,columns={column+'_y':column2})
+            print('After calculating MDA8O3: ', df)
+            ylabel = 'MDA8_O3 (ppbv)'
+
+        elif ylabel == 'PM2.5 (ug/m3)':
+            # Calculate 24hr PM2.5
+            column2 = column + '_24hr'
+            df = make_24hr_regulatory(df_hr, column).rename(index=str,columns={column+'_y':column2})
+            ylabel = '24hr_PM2.5 (ug/m3)'
+
+        else:
+            raise ValueError(f"invalid `ylabel` {ylabel}")
+
+        df.index = df.time_local
+        column = column2
+
+    # Then, if no plot has been created yet, create a plot and plot the obs.
     if ax is None: 
-        #First define the colors for the observations.
+        # Define the colors for the observations.
         obs_dict = dict(color='k', linestyle='-',marker='*', linewidth=1.2, markersize=6.)
         if plot_dict is not None:
-            #Whatever is not defined in the yaml file is filled in with the obs_dict here.
+            # Whatever is not defined in the yaml file is filled in with the obs_dict here.
             plot_kwargs = {**obs_dict, **plot_dict}
         else:
             plot_kwargs = obs_dict
-        # create the figure
+
+        # Create the figure
         if fig_dict is not None:
-            f,ax = plt.subplots(**fig_dict)    
+            _, ax = plt.subplots(**fig_dict)
         else: 
-            f,ax = plt.subplots(figsize=(10,6))
-        # plot the line
+            _, ax = plt.subplots(figsize=(10, 6))
+
+        # Plot the line
         if avg_window is None:
-            ax = df[column].plot(ax=ax, **plot_kwargs)
+            ax = df[column].plot(ax=ax, legend=True, **plot_kwargs)
         else:
             ax = df[column].resample(avg_window).mean().plot(ax=ax, legend=True, **plot_kwargs)
     
-    # If plot has been created add to the current axes.
+    # If plot has been created, add to the current axes.
     else:
-        # this means that an axis handle already exists and use it to plot the model output.
+        # This means that an axis handle already exists; use it to plot the model output.
         if avg_window is None:
             ax = df[column].plot(ax=ax, legend=True, **plot_dict)
         else:
             ax = df[column].resample(avg_window).mean().plot(ax=ax, legend=True, **plot_dict)    
     
-    #Set parameters for all plots
+    # Set parameters for all plots
     ax.set_ylabel(ylabel,fontweight='bold',**text_kwargs)
     ax.set_xlabel(df.index.name,fontweight='bold',**text_kwargs)
     ax.legend(frameon=False,fontsize=text_kwargs['fontsize']*0.8)
@@ -219,8 +258,10 @@ def make_timeseries(df, column=None, label=None, ax=None, avg_window=None, ylabe
             ax.set_title('EPA Region ' + domain_name,fontweight='bold',**text_kwargs)
         else:
             ax.set_title(domain_name,fontweight='bold',**text_kwargs)
-    return ax
     
+    return ax
+
+
 def make_taylor(df, column_o=None, label_o='Obs', column_m=None, label_m='Model', 
                 dia=None, ylabel=None, ty_scale=1.5,
                 domain_type=None, domain_name=None,
