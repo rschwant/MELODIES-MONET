@@ -525,11 +525,8 @@ class analysis:
                         else:
                             obs_plot_dict = {}
 
-                        #JianHe: Determine if calcuate regulatory values
-                        if 'regulatory' in obs_plot_dict.keys():
-                            cal_reg = obs_plot_dict['regulatory']
-                        else:
-                            cal_reg = False
+                        # Determine if calculating regulatory values
+                        cal_reg = obs_plot_dict.get('regulatory', False)
  
                         # Specify ylabel if noted in yaml file.
                         if 'ylabel_plot' in obs_plot_dict.keys():
@@ -1007,11 +1004,8 @@ class analysis:
             else:
                 obs_plot_dict = {}
 
-            #JianHe: Determine if calcuate regulatory values
-            if 'regulatory' in obs_plot_dict.keys():
-                cal_reg = obs_plot_dict['regulatory']
-            else:
-                cal_reg = False
+            # Determine if calculating regulatory values
+            cal_reg = obs_plot_dict.get('regulatory', False)
 
             # Next loop over all of the domains.
             # Loop also over the domain types.
