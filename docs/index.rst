@@ -50,6 +50,30 @@ MONETIO Github repositories please refer to:
 .. toctree::
    :hidden:
    :maxdepth: 4
+   :caption: Tutorial
+
+   tutorial/installation
+   tutorial/getting_started
+   tutorial/downloading_obs
+   tutorial/how_to_run
+   tutorial/yaml
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contribute
+   
+   develop/contribute
+   develop/workshops
+   develop/development_team
+   develop/developers_guide
+
+.. toctree::
+   :hidden:
+   :maxdepth: 4
+   :caption: Examples
+
+   examples/intro_examples
+   examples/airnow_wrfchem
 
 .. toctree::
    :hidden:
@@ -59,31 +83,6 @@ MONETIO Github repositories please refer to:
    testsuite/unit_tests
    testsuite/data_tests
    testsuite/analysis_tests
-
-   :caption: Tutorial
-
-   tutorial/installation
-   tutorial/getting_started
-   tutorial/downloading_obs
-   tutorial/how_to_run
-   tutorial/yaml
-     
-.. toctree::
-   :maxdepth: 1
-   :caption: Contribute
-   
-   develop/contribute
-   develop/workshops
-   develop/development_team
-   develop/developers_guide
-     
-.. toctree::
-   :hidden:
-   :maxdepth: 4
-   :caption: Examples
-
-   examples/intro_examples
-   examples/airnow_wrfchem
 
 .. toctree::
    :hidden:
