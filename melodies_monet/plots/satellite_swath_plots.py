@@ -6,6 +6,10 @@ import cartopy.crs as ccrs
 sns.set_context('paper')
 
 
-def make_swath(ds):
+def make_swath(ds, fig_dict=None):
+
+    proj = ccrs.PlateCarree()
+
     for granule in ds:
         print(granule)
+        print(ds[granule])
