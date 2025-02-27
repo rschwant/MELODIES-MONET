@@ -438,6 +438,8 @@ class model:
         self.files_surf = None
         self.file_pm25_str = None
         self.files_pm25 = None
+        self.file_meta_str = None
+        self.files_meta = None
         self.label = None
         self.obj = None
         self.mapping = None
@@ -492,6 +494,8 @@ class model:
             self.files_surf = sort(glob(self.file_surf_str))
         if self.file_pm25_str is not None:
             self.files_pm25 = sort(glob(self.file_pm25_str))
+        if self.file_meta_str is not None:
+            self.files_meta = sort(glob(self.file_meta_str))
 
     def open_model_files(self, time_interval=None, control_dict=None):
         """Open the model files, store data in :class:`model` instance attributes,
@@ -593,7 +597,14 @@ class model:
                 self.obj = mio.models.raqms.open_mfdataset(file_list,**self.mod_kwargs)
             else:
                 self.obj = mio.models.raqms.open_dataset(file_list)
-
+        elif 'goes_pm25' in self.model.lower():
+            if self.files_meta is not None:
+                self.mod_kwargs.update({'files_meta' : self.files_meta})
+            print('**** Reading GOES PM2.5 model output...')
+            print(self.files_meta)
+            self.mod_kwargs.update({'var_list' : list_input_var})
+            self.obj = mio.models._goes_pm25_mm.open_mfdataset(self.files,**self.mod_kwargs)
+        
         else:
             print('**** Reading Unspecified model output. Take Caution...')
             if len(self.files) > 1:
@@ -933,6 +944,9 @@ class analysis:
                 if 'files_pm25' in self.control_dict['model'][mod].keys():
                     m.file_pm25_str = os.path.expandvars(
                         self.control_dict['model'][mod]['files_pm25'])
+                if 'files_meta' in self.control_dict['model'][mod].keys():
+                    m.file_meta_str = os.path.expandvars(
+                        self.control_dict['model'][mod]['files_meta'])
                 # create mapping
                 m.mapping = self.control_dict['model'][mod]['mapping']
                 # add variable dict
