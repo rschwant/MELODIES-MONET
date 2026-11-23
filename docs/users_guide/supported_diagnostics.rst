@@ -32,7 +32,7 @@ Currently, this option only works for "OZONE" and "PM2.5" variables. There are s
 plotting characteristics for the regulatory options ("ylabel_reg_plot", "vmin_reg_plot",
 "vmax_reg_plot", and "vdiff_reg_plot") that can also be specified in the input YAML file.
 An example input YAML file that calculates MDA8 ozone and 24 hr PM\ :sub:`2.5` \ is in
-``examples/yaml/control_rrfs_cmaq_airnow_reg.yaml``. These input YAML file options are
+``docs/examples/control_wrfchem_mech-0905_2_reg.yaml``. These input YAML file options are
 also further described in the Appendix under :doc:`/appendix/yaml`.
 
 

@@ -74,7 +74,7 @@ statistics. ::
 Then you will provide the path and name to your input YAML file and read the 
 information from the input YAML file into the analysis class. ::
 
-    an.control = 'control_cmaq.yaml'
+    an.control = 'control_ufsaqm_airnow_surface-submit.yaml'
     an.read_control()
 
 Then you will read in all models listed in the "model" section of the input 
