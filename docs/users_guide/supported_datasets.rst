@@ -30,12 +30,10 @@ Supported Models
      - MOPITT, MODIS, TEMPO
    * - `CESM/CAM-chem SE <https://www2.acom.ucar.edu/gcm/cam-chem>`_
      - Yes
-     - | Needs testing & to 
-       | add unstructured 
-       | grid capabilities
-     - | Needs testing & to 
-       | add unstructured 
-       | grid capabilities
+     - | Not functional. Regrid to
+       | structured grid first.
+     - | Not functional. Regrid to
+       | structured grid first.
    * - `CMAQ <https://www.epa.gov/cmaq/>`_
      - Yes
      - Needs testing
@@ -48,7 +46,7 @@ Supported Models
      - Yes
      - Needs testing
      - TEMPO, MOPITT
-   * - `RAQMS <http://raqms-ops.ssec.wisc.edu/>`_
+   * - `RAQMS <https://raqms-ops.ssec.wisc.edu/>`_
      - Yes
      - Needs testing
      - MOPITT, OMPS
@@ -82,7 +80,7 @@ Available now:
    * `OpenAQ <https://openaq.org/>`_ - Global, aggregated, harmonized public air quality data hosted by OpenAQ
 
 Under Development:
-   * `IMPROVE <http://vista.cira.colostate.edu/Improve/>`_ - Interagency Monitoring of Protected Visual Environments
+   * `IMPROVE <https://vista.cira.colostate.edu/Improve/>`_ - Interagency Monitoring of Protected Visual Environments
    * `CRN <https://www.ncdc.noaa.gov/crn/>`_  - U.S. Climate Reference Network 
    * `TOLNet <https://www-air.larc.nasa.gov/missions/TOLNet/>`_ - Tropospheric Ozone Lidar Network
    * `CEMS <https://www.epa.gov/emc/emc-continuous-emission-monitoring-systems/>`_ - Air Emission Measurement Center (EMC) Continuous Emission Monitoring System

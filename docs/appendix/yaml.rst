@@ -111,10 +111,12 @@ Shell variables prefixed with the ``$`` symbol, such as ``$HOME``, will be expan
 
 * cmaq
 * wrfchem
+* chimere
 * ufs (rrfs is deprecated. This works for both UFS-AQM and UFS-Chem)
 * gsdchem
-* cesm_fv 
-* cesm_se 
+* cesm_fv
+* cesm_se
+* camx
 * raqms
 
 If you specify another name, MELODIES MONET will try to read in the data using
@@ -404,7 +406,8 @@ For each plotting group, update the label and include the following information.
 Note: the labels need to be unique, but otherwise are not used.
 
 **type:** The plot type. Options are: "timeseries", "taylor", "spatial_bias",
-"spatial_overlay", "spatial_bias_exceedance", "boxplot", "multi-boxplot","csi"
+"spatial_overlay", "spatial_bias_exceedance", "boxplot", "multi-boxplot","csi", "rose_plot",
+"diurnal_plot"
 Note: "spatial_bias_exceedance" plots only work when regulatory = True.
 
 **fig_kwargs:** This is optional to provide a dictionary with figure 
@@ -636,6 +639,12 @@ observation label is first and the model label is second
       *   ``**``: 1.00e-03 < p <= 1.00e-02
       *  ``***``: 1.00e-04 < p <= 1.00e-03
       * ``****``: p <= 1.00e-04
+
+   * **wind_barb:** If = True, add wind barbs to the plot. Defaults to False.
+   * **wind_barb_step:** Step or stride frequency to plot every nth wind barb to declutter plot. 
+     Defaults to 1.
+   * **wind_barb_kwargs:** Optional dictionary containing information about wind barbs to import into
+     matplotlib.axes.Axes.barbs function for users to change color, length, linewidth, etc.
 
 
 Stats
