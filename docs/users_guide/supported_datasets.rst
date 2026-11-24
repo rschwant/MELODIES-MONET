@@ -144,7 +144,7 @@ and profile retrievals. Satellite data processing includes swath-to-grid regridd
 quality filtering, and model pairing.
 
 Available now:
-   * `MODIS <https://modis.gsfc.nasa.gov/>`_ - Moderate Resolution Imaging Spectroradiometer aerosol products (MOD04_L2, MYD04_L2). See :doc:`satellites/modis` for detailed documentation.
+   * `MODIS <https://www.earthdata.nasa.gov/data/instruments/modis/>`_ - Moderate Resolution Imaging Spectroradiometer aerosol products (MOD04_L2, MYD04_L2). See :doc:`satellites/modis` for detailed documentation.
    * `MOPITT <https://www2.acom.ucar.edu/facility/mopitt>`_ - Measurements of Pollution in the Troposphere (CO profiles)
    * `OMPS <https://ozoneaq.gsfc.nasa.gov/omps/>`_ - Ozone Mapping and Profiler Suite
    * `TROPOMI <http://www.tropomi.eu/>`_ - TROPOspheric Monitoring Instrument (NO2)
