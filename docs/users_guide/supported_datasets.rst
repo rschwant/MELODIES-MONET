@@ -42,7 +42,7 @@ Supported Models
      - Yes
      - Yes
      - MOPITT
-   * - `CAMx <https://www.camx.com/>`_
+   * - `CAMx <https://www.ramboll.com/en-us/products/government-and-public/camx/>`_
      - Yes
      - Needs testing
      - TEMPO, MOPITT

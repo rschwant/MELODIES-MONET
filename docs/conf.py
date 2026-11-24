@@ -210,6 +210,8 @@ linkcheck_ignore = [
     "https://rapidrefresh.noaa.gov/monet_rrfs_verif/",
     # AERONET site can be flaky or slow to respond:
     "https://aeronet.gsfc.nasa.gov/",
+    # NASA blocks automated/GitHub Actions requests with 403; URL verified valid in browser
+    "https://www.earthdata.nasa.gov/data/instruments/modis/",
 ]
 user_agent = "Mozilla/5.0 (X11; Linux x86_64; rv:25.0) Gecko/20100101 Firefox/25.0"
 
